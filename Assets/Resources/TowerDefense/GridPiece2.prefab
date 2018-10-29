@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33162546262551170}
   - component: {fileID: 23904989439614492}
   - component: {fileID: 64604324818922694}
+  - component: {fileID: 114838514632372128}
   m_Layer: 0
   m_Name: GridPiece2
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114838514632372128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1701487468493670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8b5d40fbaa3d24982a2e53aed8e014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PanelToShow: {fileID: 1620363344015918, guid: a04a868d46719444cac494d5407e716b,
+    type: 2}
