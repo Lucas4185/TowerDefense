@@ -306,6 +306,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\dargTowerPads.cs" />
     <Compile Include="Assets\Scripts\grid.cs" />
     <Compile Include="Assets\Scripts\GridScript.cs" />

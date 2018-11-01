@@ -12,7 +12,7 @@ public class GridScript : MonoBehaviour
 
     public float TileSize
     {
-      get { return tilePrefab[0].GetComponent<MeshRenderer>().bounds.size.x; }
+      get { return tilePrefab[0].GetComponent<SpriteRenderer>().bounds.size.x; }
     }
 
     // Use this for initialization
