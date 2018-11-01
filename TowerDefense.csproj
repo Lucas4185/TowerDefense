@@ -307,11 +307,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\dargTowerPads.cs" />
+    <Compile Include="Assets\Scripts\grid.cs" />
     <Compile Include="Assets\Scripts\GridScript.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\moveTowardsMouse.cs" />
+    <Compile Include="Assets\Scripts\node.cs" />
+    <Compile Include="Assets\Scripts\player.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\Level.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />

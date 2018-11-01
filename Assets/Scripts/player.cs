@@ -8,11 +8,12 @@ public class player : MonoBehaviour {
 
     public Vector2Int gridpos;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gridpos = new Vector2Int(0, 0);
         StartCoroutine("movement");
-	}
+    }
 
     IEnumerator movement()
     {
@@ -22,7 +23,7 @@ public class player : MonoBehaviour {
         yield return new WaitForSeconds(1);
         while (true)
         {
-            if(gridfab.nodeGrid[gridpos.x, gridpos.y].direction != Vector3.zero)
+            if (gridfab.nodeGrid[gridpos.x, gridpos.y].direction != Vector3.zero)
             {
                 transform.position += gridfab.nodeGrid[gridpos.x, gridpos.y].direction;
                 gridpos = new Vector2Int(gridpos.x + (int)gridfab.nodeGrid[gridpos.x, gridpos.y].direction.x, gridpos.y + (int)gridfab.nodeGrid[gridpos.x, gridpos.y].direction.y);
@@ -31,8 +32,9 @@ public class player : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
