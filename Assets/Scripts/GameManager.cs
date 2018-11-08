@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
+    [SerializeField]
     private GameObject towerPrefab;
-	// Use this for initialization
-	void Start () {
+
+    public GameObject TowerPrefab
+    {
+        get
+        {
+            return towerPrefab;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

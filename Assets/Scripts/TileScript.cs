@@ -35,14 +35,10 @@ public class TileScript : MonoBehaviour {
             PlaceTower();
             //Debug.Log(GridPosition.x + ", " + GridPosition.y);
         }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("Lucas is awesome");
-        }
     }
 
     private void PlaceTower()
     {
-        Debug.Log("Brandon is gay moto");
+        Instantiate(GameManager.Instance.TowerPrefab, transform.position, Quaternion.identity);
     }
 }
