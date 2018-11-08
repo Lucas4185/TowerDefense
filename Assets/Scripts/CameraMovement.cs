@@ -7,6 +7,8 @@ public class CameraMovement : MonoBehaviour {
 
     [SerializeField]
     private float cameraSpeed = 0;
+    private float xMax;
+    private float yMin;
 
     // Use this for initialization
     void Start()
@@ -40,10 +42,16 @@ public class CameraMovement : MonoBehaviour {
         {
             transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
         }
+
+       transform.position = new Vector3(Mathf.Clamp(transform.position.x, 0, xMax), Mathf.Clamp(transform.position.y, yMin,0),-10);
     }
 
-    private void SetLimits()
+    public void SetLimits(Vector3 maxTiles)
     {
         Vector3 wp = Camera.main.ViewportToWorldPoint(new Vector3(1, 0));
+
+        xMax = maxTiles.x - wp.x;
+        yMin = maxTiles.y - wp.y;
+
     }
 }
