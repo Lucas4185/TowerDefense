@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TileScript : MonoBehaviour {
 
@@ -39,6 +40,13 @@ public class TileScript : MonoBehaviour {
 
     private void PlaceTower()
     {
-        Instantiate(GameManager.Instance.TowerPrefab, transform.position, Quaternion.identity);
+
+        //Deze code werkt alleen als de muis niet over een GameObject is zo weet het dat als je op een button clicked om een tower te kiezen dat hij geen tower moet plaatsen
+        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
+        {
+           GameObject tower = Instantiate(GameManager.Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab), transform.position, Quaternion.identity);
+
+            tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.y; 
+        }
     }
 }

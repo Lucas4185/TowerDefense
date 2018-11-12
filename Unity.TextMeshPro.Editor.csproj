@@ -383,6 +383,7 @@
     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_TexturePostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Img\TXT\LICENSES.txt" />
     <None Include="Assets\Img\TXT\readme.txt" />
     <None Include="Assets\Resources\Level.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />

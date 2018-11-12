@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField]
-    private GameObject towerPrefab;
 
-    public GameObject TowerPrefab
-    {
-        get
-        {
-            return towerPrefab;
-        }
-    }
+    public TowerBtn ClickedBtn { get; private set; }
+
 
     // Use this for initialization
     void Start () {
@@ -24,4 +17,9 @@ public class GameManager : Singleton<GameManager>
 	void Update () {
 		
 	}
+
+    public void PickTower(TowerBtn towerBtn)
+    {
+        this.ClickedBtn = towerBtn;
+    }
 }
