@@ -14,4 +14,12 @@ public struct Point{
         this.y = y;
     }
 
+    public static bool operator == (Point first, Point second)
+    {
+        return first.x == second.x && first.y == second.y;
+    }
+    public static bool operator !=(Point first, Point second)
+    {
+        return first.x != second.x || first.y != second.y;
+    }
 }

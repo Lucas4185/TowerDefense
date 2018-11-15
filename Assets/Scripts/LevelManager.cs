@@ -18,6 +18,8 @@ public class LevelManager : Singleton<LevelManager>
     public int xPos;
     public int yPos;
 
+    private Point mapSize;
+
 
     public float TileSize
     {
@@ -46,6 +48,8 @@ public class LevelManager : Singleton<LevelManager>
         Tiles = new Dictionary<Point, TileScript>();
 
         string[] mapData = ReadLevelText();
+
+        mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
 
         int mapXsize = mapData[0].ToCharArray().Length;
         int mapYsize = mapData.Length;
@@ -94,5 +98,10 @@ public class LevelManager : Singleton<LevelManager>
         return tmpData.Split('-');
     }
 
+
+    public bool InBounds(Point position)
+    {
+        return position.x >= 0 && position.y >= 0 && position.x < mapSize.x && position.y < mapSize.y;
+    }
     
 }

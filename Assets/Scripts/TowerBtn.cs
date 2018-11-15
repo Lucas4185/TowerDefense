@@ -7,7 +7,17 @@ public class TowerBtn : MonoBehaviour {
     [SerializeField]
     private GameObject towerPrefab;
 
-    //Dit is zidat je toch een private object kan halen maar niet kan veranderen
+    [SerializeField]
+    private Sprite sprite;
+    //Dit is zodat je toch een private object kan halen maar niet kan veranderen
+    public Sprite Sprite
+    {
+        get
+        {
+            return sprite;
+        }
+    }
+
     public GameObject TowerPrefab
     {
         get
@@ -16,6 +26,7 @@ public class TowerBtn : MonoBehaviour {
         }
     }
 
+    
     // Use this for initialization
     void Start()
     {

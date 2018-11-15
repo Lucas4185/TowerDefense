@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 
-    public TowerBtn ClickedBtn { get; private set; }
+    public TowerBtn ClickedBtn { get; set; }
 
 
     // Use this for initialization
@@ -15,11 +15,20 @@ public class GameManager : Singleton<GameManager>
 	
 	// Update is called once per frame
 	void Update () {
-		
+        HandleEscape();
 	}
 
     public void PickTower(TowerBtn towerBtn)
     {
         this.ClickedBtn = towerBtn;
+        Hover.Instance.Activate(towerBtn.Sprite);
+    }
+
+    private void HandleEscape()
+    {
+       if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Hover.Instance.Deactivate();
+        }
     }
 }
