@@ -53,8 +53,11 @@ public class AstarDebugger : MonoBehaviour {
     {
         foreach (Node node in openList)
         {
-            node.TileRef.spriteRenderer.color = Color.clear;
-            //node.TileRef.spriteRenderer.sprite = blankTile;
+            if (node.TileRef != start)
+            {
+                node.TileRef.spriteRenderer.color = Color.clear;
+                //node.TileRef.spriteRenderer.sprite = blankTile;
+            }
         }
     }
   
