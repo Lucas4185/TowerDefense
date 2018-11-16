@@ -11,12 +11,39 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private CameraMovement cameraMovement;
 
+    private Point spawnBegin ,endSpawn;
+
+    [SerializeField]
+    private GameObject beginPortal;
+
+    [SerializeField]
+    private GameObject endPortal;
+
+    public Portal BeginPortal { get; set; }
+
     [SerializeField]
     private Transform map;
 
     public Dictionary<Point, TileScript> Tiles { get; set; }
     public int xPos;
     public int yPos;
+
+    private Stack<Node> finalPath;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (finalPath == null)
+            {
+                GeneratePath();
+            }
+            return new Stack<Node>(new Stack<Node>(finalPath));
+        }
+    }
+
+
+    public LevelManager spawner { get; set; }
 
     private Point mapSize;
 
@@ -73,6 +100,22 @@ public class LevelManager : Singleton<LevelManager>
 
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
 
+        SpawnPortals();
+    }
+
+    private void SpawnPortals()
+    {
+        spawnBegin = new Point(0, 4);
+        
+        GameObject tmp = (GameObject)Instantiate(beginPortal,Tiles[spawnBegin].transform.position,Quaternion.identity);
+        BeginPortal = tmp.GetComponent<Portal>();
+        BeginPortal.name = "beginPortal";
+
+
+        endSpawn = new Point(11, 6);
+
+        Instantiate(endPortal, Tiles[endSpawn].transform.position, Quaternion.identity);
+
     }
 
     //dit maakt de tile en zet hem op de goede plek
@@ -102,6 +145,11 @@ public class LevelManager : Singleton<LevelManager>
     public bool InBounds(Point position)
     {
         return position.x >= 0 && position.y >= 0 && position.x < mapSize.x && position.y < mapSize.y;
+    }
+
+    public void GeneratePath()
+    {
+        finalPath = Astar.GetPath(spawnBegin,endSpawn);
     }
     
 }

@@ -8,9 +8,27 @@ public class Node {
    
     public TileScript TileRef { get; private set; }
 
+    public Vector2 WorldPosition { get; set; }
+
+    public Node Parent { get; private set; }
+
+    public int G { get; set; }
+    public int H { get; set; }
+    public int F { get; set; }
     public Node(TileScript tileRef)
     {
         this.TileRef = tileRef;
         this.GridPosition = tileRef.GridPosition;
+        this.WorldPosition = tileRef.WorldPosition;
+    }
+
+    public void CalcValues(Node parent,Node goal, int gCost)
+    {
+        this.Parent = parent;
+        this.G = parent.G + gCost;
+
+        this.H = ((Mathf.Abs(GridPosition.x - goal.GridPosition.x)) + (Mathf.Abs(goal.GridPosition.y - GridPosition.y))) * 10;
+
+        this.F = G + H;
     }
 }

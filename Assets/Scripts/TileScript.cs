@@ -7,7 +7,7 @@ public class TileScript : MonoBehaviour {
 
     public Point GridPosition { get; private set; }
 
-    public SpriteRenderer spriteRenderer { get; set; }
+    private SpriteRenderer spriteRenderer { get; set; }
 
     private Color32 fullColor = new Color(255, 118, 118, 255);
 
@@ -18,6 +18,14 @@ public class TileScript : MonoBehaviour {
     public bool Debug { get; set; }
 
     public bool walkAble { get; set; }
+
+    public Vector2 WorldPosition
+    {
+        get
+        {
+            return new Vector2(transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x / 2), transform.position.y - (GetComponent<SpriteRenderer>().bounds.size.y/2));
+        }
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -79,9 +87,9 @@ public class TileScript : MonoBehaviour {
         //Deze code werkt alleen als de muis niet over een GameObject is zo weet het dat als je op een button clicked om een tower te kiezen dat hij geen tower moet plaatsen
         if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
         {
-           GameObject tower = Instantiate(GameManager.Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab), transform.position, Quaternion.identity);
+           GameObject tower = Instantiate((GameManager.Instance.ClickedBtn.TowerPrefab), transform.position, Quaternion.identity);
 
-            tower.GetComponent<SpriteRenderer>().sortingOrder = 5;
+            tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.y;
             isEmpty = false;
             ColorTile(Color.white);
 
@@ -90,7 +98,7 @@ public class TileScript : MonoBehaviour {
             walkAble = false;
         }
     }
-    public void ColorTile(Color newColor)
+    private void ColorTile(Color newColor)
     {
         spriteRenderer.color = newColor;
     }

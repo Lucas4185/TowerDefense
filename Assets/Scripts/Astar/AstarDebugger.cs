@@ -6,20 +6,26 @@ public class AstarDebugger : MonoBehaviour {
 
     [SerializeField]
     private TileScript start, goal;
+
+    [SerializeField]
+    private GameObject debugTilePrefab;
+
+    [SerializeField]
+    private GameObject arrowPrefab;
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        ClickTile();
+	//void Update () {
+       // ClickTile();
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Astar.GetPath(start.GridPosition);
-        }
-	}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+           // Astar.GetPath(start.GridPosition, goal.GridPosition);
+        //}
+	//}
 
     private void ClickTile()
     {
@@ -36,29 +42,112 @@ public class AstarDebugger : MonoBehaviour {
                     if (start == null)
                     {
                         start = tmp;
-                        start.Debug = true;
-                        start.ColorTile(Color.black);
+                        CreateDebugTile(start.WorldPosition, new Color32(255, 135, 0, 255));
+                 
                     } else if (goal == null)
                     {
                         goal = tmp;
-                        goal.Debug = true;
-                        goal.ColorTile(Color.magenta);
+                        CreateDebugTile(goal.WorldPosition, new Color32(255, 0, 0, 255));
                     }
                 }
             }
         }
     }
 
-    public void DebugPath(HashSet<Node> openList)
+    public void DebugPath(HashSet<Node> openList, HashSet<Node> closedList, Stack<Node> path)
     {
         foreach (Node node in openList)
         {
-            if (node.TileRef != start)
+            if (node.TileRef != start && node.TileRef != goal)
             {
-                node.TileRef.spriteRenderer.color = Color.clear;
-                //node.TileRef.spriteRenderer.sprite = blankTile;
+                CreateDebugTile(node.TileRef.WorldPosition, Color.cyan, node);
+            }
+
+            PointToParent(node, node.TileRef.WorldPosition);
+        }
+        foreach (Node node in closedList)
+        {
+            if (node.TileRef != start && node.TileRef != goal)
+            {
+                CreateDebugTile(node.TileRef.WorldPosition, Color.blue, node);
+            }
+            PointToParent(node, node.TileRef.WorldPosition);
+        }
+
+        foreach(Node node in path)
+        {
+            if (node.TileRef != start && node.TileRef != goal && path.Contains(node))
+            {
+                CreateDebugTile(node.TileRef.WorldPosition, Color.grey, node);
             }
         }
+    }
+
+    private void PointToParent(Node node, Vector2 position)
+    {
+
+        if (node.Parent != null)
+        {
+            GameObject arrow = (GameObject)Instantiate(arrowPrefab, position, Quaternion.identity);
+
+            arrow.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            //left
+            if ((node.GridPosition.x < node.Parent.GridPosition.x) && (node.GridPosition.y == node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 0);
+            }
+            //bottom left
+           else if ((node.GridPosition.x < node.Parent.GridPosition.x) && (node.GridPosition.y > node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 45);
+            }
+            //under
+            else if ((node.GridPosition.x == node.Parent.GridPosition.x) && (node.GridPosition.y > node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 90);
+            }
+            //bottom left
+            else if ((node.GridPosition.x > node.Parent.GridPosition.x) && (node.GridPosition.y > node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 135);
+            }
+            // right
+            else if ((node.GridPosition.x > node.Parent.GridPosition.x) && (node.GridPosition.y == node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 180);
+            }
+            //top right
+            else if ((node.GridPosition.x > node.Parent.GridPosition.x) && (node.GridPosition.y < node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 225);
+            }
+            //top 
+            else if ((node.GridPosition.x == node.Parent.GridPosition.x) && (node.GridPosition.y < node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 270);
+            }
+            //top left
+            else if ((node.GridPosition.x < node.Parent.GridPosition.x) && (node.GridPosition.y < node.Parent.GridPosition.y))
+            {
+                arrow.transform.eulerAngles = new Vector3(0, 0, 315);
+            }
+        }
+    }
+
+    private void CreateDebugTile(Vector3 worldPos, Color32 color, Node node = null)
+    {
+        GameObject debugTile = (GameObject)Instantiate(debugTilePrefab,worldPos,Quaternion.identity);
+
+        if (node != null)
+        {
+            debugTile tmp = debugTile.GetComponent<debugTile>();
+
+            tmp.G.text += node.G;
+            tmp.H.text += node.H;
+            tmp.F.text += node.F;
+        }
+
+        debugTile.GetComponent<SpriteRenderer>().color = color;
     }
   
 }
